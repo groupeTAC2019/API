@@ -91,6 +91,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Adresse.cs" />
+    <Compile Include="Models\Assurance.cs" />
+    <Compile Include="Models\Bien.cs" />
+    <Compile Include="Models\Commentaire.cs" />
+    <Compile Include="Models\Echange.cs" />
+    <Compile Include="Models\Membre.cs" />
+    <Compile Include="Models\Options.cs" />
+    <Compile Include="Models\Pays.cs" />
+    <Compile Include="Models\Photo.cs" />
+    <Compile Include="Models\Piece.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -105,7 +115,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
