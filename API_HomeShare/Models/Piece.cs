@@ -7,6 +7,7 @@ public class Piece
 {
     private int _id_piece;
     private string _nom;
+    private int _nbr_pieces;
 
     public int Id_piece
     {
@@ -31,6 +32,19 @@ public class Piece
         set
         {
             _nom = value;
+        }
+    }
+
+    public int Nbr_pieces
+    {
+        get
+        {
+            return _nbr_pieces;
+        }
+
+        set
+        {
+            _nbr_pieces = value;
         }
     }
 }
