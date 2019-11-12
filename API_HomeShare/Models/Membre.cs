@@ -7,7 +7,7 @@ namespace API_HomeShare.Controllers
 {
     public class Membre
     {
-        private int _id__membre;
+        private int _id_membre;
         private string _nom;
         private string _prenom;
         private string _email;
@@ -96,16 +96,16 @@ namespace API_HomeShare.Controllers
             }
         }
 
-        public int Id__membre
+        public int Id_membre
         {
             get
             {
-                return _id__membre;
+                return _id_membre;
             }
 
             set
             {
-                _id__membre = value;
+                _id_membre = value;
             }
         }
 
