@@ -10,19 +10,19 @@ using ToolBox;
 
 namespace API_HomeShare.Controllers
 {
-   
+
     public class MembreController : ApiController
     {
         public static ConnectionStringSettings GetConnectionStrings(String name)
-    {
-        ConnectionStringSettings connections = ConfigurationManager.ConnectionStrings[name];
-        return connections;
-    }
+        {
+            ConnectionStringSettings connections = ConfigurationManager.ConnectionStrings[name];
+            return connections;
+        }
         [Route("api/Membre")]
         public List<Membre> Get()
         {
             Command cmd = new Command("Select * from Membre WHERE is_delete != 1");
-            Connection con = new Connection(GetConnectionStrings("connectionsa").ProviderName, GetConnectionStrings("connectionsa").ConnectionString);
+            Connection con = new Connection(GetConnectionStrings("DBConnection").ProviderName, GetConnectionStrings("DBConnection").ConnectionString);
 
             DataTable dt = con.GetDataTable(cmd);
             List<Membre> listeMembre = new List<Membre>();
@@ -43,13 +43,13 @@ namespace API_HomeShare.Controllers
             }
             return listeMembre;
         }
-        
+
         [Route("api/Membre/{id_Membre:int}")]
         public Membre Get(int id_Membre)
         {
             Command cmd = new Command("Select * from Membre WHERE id_Membre = @id_Membre");
             cmd.AddParameter("id_Membre", id_Membre);
-            Connection con = new Connection(GetConnectionStrings("connectionsa").ProviderName, GetConnectionStrings("connectionsa").ConnectionString);
+            Connection con = new Connection(GetConnectionStrings("DBConnection").ProviderName, GetConnectionStrings("DBConnection").ConnectionString);
 
             DataTable mt = con.GetDataTable(cmd);
             DataRow item = mt.Rows[0];
@@ -78,7 +78,7 @@ namespace API_HomeShare.Controllers
             ,[is_admin]
             ,[mdp]
             ,[id_pays])
-    output inserted.id_membre
+            output inserted.id_membre
             VALUES
             (
             @nom
@@ -95,38 +95,36 @@ namespace API_HomeShare.Controllers
             cmd.AddParameter("is_admin", m.Admin);
             cmd.AddParameter("mdp", m.Mdp);
             cmd.AddParameter("id_pays", m.Id_pays);
-            Connection con = new Connection(GetConnectionStrings("connectionsa").ProviderName, GetConnectionStrings("connectionsa").ConnectionString);
+            Connection con = new Connection(GetConnectionStrings("DBConnection").ProviderName, GetConnectionStrings("DBConnection").ConnectionString);
             int mid = (int)con.ExecuteScalar(cmd);
             m.Id_membre = mid;
             return m;
         }
-        //TEST POST
-        //{
-        //"nom":"legrain",
-        //"prenom":"samuel",
-        //"email":"l.s@gmail.com",
-        //"tel":65489531,
-        //"is_admin":0,
-        //"mdp":"ls123",
-        //"id_pays":2
-        //}
+        /*TEST POST
+        {
+        "nom":"legrain",
+        "prenom":"samuel",
+        "email":"l.s@gmail.com",
+        "tel":65489531,
+        "is_admin":0,
+        "mdp":"ls123",
+        "id_pays":2
+        }*/
 
-
-        // PUT: api/Membre/5
         [Route("api/Membre/{id_Membre:int}")]
         public void Put(int id_Membre, Membre m)
         {
             Command cmd = new Command(@"UPDATE [dbo].[membre] 
             SET 
-                [nom]= @nom
+             [nom]= @nom
             ,[prenom]= @prenom
             ,[email]= @email
             ,[tel]= @tel
             ,[is_admin]= @is_admin
             ,[mdp]= @mdp
             ,[id_pays]= @id_pays
-            WHERE id_membre = @id_Membre");
-            cmd.AddParameter("id_Membre", m.Id_membre);
+            WHERE id_membre = @id_Membre ;");
+            cmd.AddParameter("id_Membre", id_Membre);
             cmd.AddParameter("nom", m.Nom);
             cmd.AddParameter("prenom", m.Prenom);
             cmd.AddParameter("email", m.Email);
@@ -134,27 +132,18 @@ namespace API_HomeShare.Controllers
             cmd.AddParameter("is_admin", m.Admin);
             cmd.AddParameter("mdp", m.Mdp);
             cmd.AddParameter("id_pays", m.Id_pays);
-            Connection con = new Connection(GetConnectionStrings("connectionsa").ProviderName, GetConnectionStrings("connectionsa").ConnectionString);
+            Connection con = new Connection(GetConnectionStrings("DBConnection").ProviderName, GetConnectionStrings("DBConnection").ConnectionString);
             con.ExecuteScalar(cmd);
         }
 
-        // DELETE: api/Membre/5
         [Route("api/Membre/{id_Membre:int}")]
         public bool Delete(int id_Membre)
         {
             Command cmd = new Command(@"DELETE from Membre WHERE id_Membre = @id_Membre
                                         SELECT is_delete FROM Membre WHERE id_membre = @id_Membre");
             cmd.AddParameter("id_Membre", id_Membre);
-            Connection con = new Connection(GetConnectionStrings("connectionsa").ProviderName, GetConnectionStrings("connectionsa").ConnectionString);
+            Connection con = new Connection(GetConnectionStrings("DBConnection").ProviderName, GetConnectionStrings("DBConnection").ConnectionString);
             return (bool)con.ExecuteScalar(cmd);
-            /*try
-            {
-                //return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }*/
         }
     }
 }
