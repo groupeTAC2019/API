@@ -13,7 +13,8 @@ namespace API_HomeShare.Models
         private string message;
         private int note;
         private bool valide;
-
+        private int id_membre;
+        private int id_bien;
 
 
         #endregion
@@ -69,6 +70,32 @@ namespace API_HomeShare.Models
             set
             {
                 valide = value;
+            }
+        }
+
+        public int Id_membre
+        {
+            get
+            {
+                return id_membre;
+            }
+
+            set
+            {
+                id_membre = value;
+            }
+        }
+
+        public int Id_bien
+        {
+            get
+            {
+                return id_bien;
+            }
+
+            set
+            {
+                id_bien = value;
             }
         }
 

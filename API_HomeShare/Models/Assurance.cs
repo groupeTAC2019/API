@@ -9,7 +9,7 @@ namespace API_HomeShare.Models
     {
         private int _id_assurance;
         private string _type;
-        private decimal _prix;
+        private decimal? _prix;
 
         public int Id_assurance
         {
@@ -37,7 +37,7 @@ namespace API_HomeShare.Models
             }
         }
 
-        public decimal Prix
+        public decimal? Prix
         {
             get
             {
