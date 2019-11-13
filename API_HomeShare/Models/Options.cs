@@ -7,10 +7,10 @@ namespace API_HomeShare.Models
 {
     public class Options
     {
-        private int _id_option;
+        private long _id_option;
         private string _nom;
 
-        public int Id_option
+        public long Id_option
         {
             get
             {

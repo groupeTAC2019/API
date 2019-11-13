@@ -6,14 +6,14 @@ using System.Web;
 
 public class Echange
 {
-    private int _id_echange;
+    private long _id_echange;
     private DateTime _date_debut;
     private DateTime _date_fin;
     private bool _valide;
-    private int _id_bien;
-    private int _id_membre;
+    private long _id_bien;
+    private long _id_membre;
 
-    public int Id_echange
+    public long Id_echange
     {
         get
         {
@@ -65,7 +65,7 @@ public class Echange
         }
     }
 
-    public int Id_bien
+    public long Id_bien
     {
         get
         {
@@ -78,7 +78,7 @@ public class Echange
         }
     }
 
-    public int Id_membre
+    public long Id_membre
     {
         get
         {
