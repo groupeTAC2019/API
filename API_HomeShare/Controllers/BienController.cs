@@ -143,5 +143,24 @@ namespace API_HomeShare.Controllers
 
             return result;
         }
+/*
+        public Bien PostBien(Bien bien , Adresse adresse)
+        {
+            
+
+            Command cmd = new Command("insert into bien (titre,desc_courte,desc_longue,nb_personne,date_ajout,id_adresse,id_membre)" +
+                                      "values (@titre,@desc_courte,@desc_longue,@nb_personne,@date_ajout,@id_adresse,@id_membre)");
+            cmd.AddParameter("@titre",bien.Titre);
+            cmd.AddParameter("@desc_courte", bien.Desc_courte);
+            cmd.AddParameter("@desc_longue", bien.Desc_longue);
+            cmd.AddParameter("@nb_personne", bien.Nb_personne);
+            cmd.AddParameter("@date_ajout", DateTime.Now.Date);
+            cmd.AddParameter("@id_adresse", adresse.Id_adresse);
+
+            Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
+
+
+        }*/
     }
+    
 }
