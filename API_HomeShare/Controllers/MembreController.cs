@@ -78,17 +78,7 @@ namespace API_HomeShare.Controllers
             List<Bien> listeBien = new List<Bien>();
             foreach (DataRow item in dt.Rows)
             {
-                Bien b = new Bien()
-                {
-                    Id = (int)item["id_bien"],
-                    Titre = item["titre"].ToString(),
-                    Desc_courte = item["desc_courte"].ToString(),
-                    Desc_longue = item["desc_longue"].ToString(),
-                    Nb_personne = (int)item["nb_personne"],
-                    Disponible = (bool)item["disponible"],
-                    Date_desactivation = item["date_desactivation"] == DBNull.Value ? null : (DateTime?)row["date_desactivation"],
-                    Date_ajout = (DateTime)item["date_ajout"]
-                };
+                Bien b = item.toBien();
                 listeBien.Add(b);
             }
             return listeBien;

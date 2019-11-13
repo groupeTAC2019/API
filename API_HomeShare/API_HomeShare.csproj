@@ -90,6 +90,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructures\Mapper.cs" />
     <Compile Include="Models\Adresse.cs" />
     <Compile Include="Models\Assurance.cs" />
     <Compile Include="Models\Bien.cs" />
