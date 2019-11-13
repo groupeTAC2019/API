@@ -1,4 +1,6 @@
-﻿using System;
+﻿using API_HomeShare.Infrastructures;
+using API_HomeShare.Models;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -65,6 +67,31 @@ namespace API_HomeShare.Controllers
                 Id_pays = (int)item["id_pays"],
             };
             return m;
+        }
+        [Route("Api/Membre/{id_Membre:int}/Bien")]
+        public List<Bien> GetBien(int id_Membre){
+            Command cmd = new Command("Bien_Membre",true);
+            cmd.AddParameter("id_membre", id_Membre);
+            Connection con = new Connection(GetConnectionStrings("DBConnection").ProviderName, GetConnectionStrings("DBConnection").ConnectionString);
+
+            DataTable dt = con.GetDataTable(cmd);
+            List<Bien> listeBien = new List<Bien>();
+            foreach (DataRow item in dt.Rows)
+            {
+                Bien b = new Bien()
+                {
+                    Id = (int)item["id_bien"],
+                    Titre = item["titre"].ToString(),
+                    Desc_courte = item["desc_courte"].ToString(),
+                    Desc_longue = item["desc_longue"].ToString(),
+                    Nb_personne = (int)item["nb_personne"],
+                    Disponible = (bool)item["disponible"],
+                    Date_desactivation = item["date_desactivation"] == DBNull.Value ? null : (DateTime?)row["date_desactivation"],
+                    Date_ajout = (DateTime)item["date_ajout"]
+                };
+                listeBien.Add(b);
+            }
+            return listeBien;
         }
 
         [Route("api/Membre")]
