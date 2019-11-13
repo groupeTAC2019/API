@@ -5,12 +5,12 @@ using System.Web;
 
 public class Photo
 {
-    private int _id_Photo;
+    private long _id_Photo;
     private string _lien;
     private string _legende;
-    private int _id_bien;
+    private long _id_bien;
 
-    public int Id_Photo
+    public long Id_Photo
     {
         get
         {
@@ -49,7 +49,7 @@ public class Photo
         }
     }
 
-    public int Id_bien
+    public long Id_bien
     {
         get
         {
