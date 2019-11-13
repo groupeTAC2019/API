@@ -19,7 +19,7 @@ namespace API_HomeShare.Controllers
         }
 
 
-        [Route("bien/getall")]
+        [Route("api/bien/getall")]
         public List<Bien> GetAll()
         {
             Command cmd = new Command("select * from Bien");
@@ -51,7 +51,7 @@ namespace API_HomeShare.Controllers
             return result;
         }
 
-        [Route("bien/dernierBien")]
+        [Route("api/bien/dernierBien")]
         public List<Bien> GetDernierBien()
         {
             Command cmd = new Command("select * from V_Dernier_5_Bien");
@@ -80,36 +80,30 @@ namespace API_HomeShare.Controllers
             return result;
         }
 
-        [Route("Bien/{id:int}")]
+        [Route("api/bien/{id:int}")]
         public Bien GetById(int id)
         {
-            Command cmd = new Command("select * from V_Bien_Bonne_Note");
+            Command cmd = new Command("exec Bien_Membre");
 
             Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
 
             DataTable dt = con.GetDataTable(cmd);
-            List<Bien> result = new List<Bien>();
-
-            foreach (DataRow row in dt.Rows)
+            DataRow result = dt.Rows[0];
+            Bien bien = new Bien()
             {
-                Bien bien = new Bien()
-                {
-                    Id = (int)row["id_bien"],
-                    Titre = row["titre"].ToString(),
-                    Desc_courte = row["desc_courte"].ToString(),
-                    Desc_longue = row["desc_longue"].ToString(),
-                    Nb_personne = (int)row["nb_personne"],
-                    Disponible = (bool)row["disponible"],
-                    Date_desactivation = row["date_desactivation"] == DBNull.Value ? null : (DateTime?)row["date_desactivation"],
-                    Id_adresse = (int)row["id_adresse"],
-                    Id_membre = (int)row["id_membre"],
-                    Date_ajout = (DateTime)row["date_ajout"]
-                };
+                Id = (int)result["id_bien"],
+                Titre = result["titre"].ToString(),
+                Desc_courte = result["desc_courte"].ToString(),
+                Desc_longue = result["desc_longue"].ToString(),
+                Nb_personne = (int)result["nb_personne"],
+                Disponible = (bool)result["disponible"],
+                Date_desactivation = result["date_desactivation"] == DBNull.Value ? null : (DateTime?)result["date_desactivation"],
+                Id_adresse = (int)result["id_adresse"],
+                Id_membre = (int)result["id_membre"],
+                Date_ajout = (DateTime)result["date_ajout"]
+            };
 
-                result.Add(bien);
-            }
-
-            return result;
+            return bien;
         }
     }
 }
