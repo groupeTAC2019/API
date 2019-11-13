@@ -9,20 +9,22 @@ namespace API_HomeShare.Models
     {
         #region properties
 
-        private long _id;
+        private int _id;
         private string _titre;
         private string _desc_courte;
         private string _desc_longue;
         private DateTime _date_ajout;
         private int _nb_personne;
         private bool _disponible;
-        private DateTime _date_desactivation;
+        private DateTime? _date_desactivation;
+        private int _id_adresse;
+        private int _id_membre;
 
         #endregion
 
         #region getter setter
 
-        public long Id
+        public int Id
         {
             get
             {
@@ -113,7 +115,7 @@ namespace API_HomeShare.Models
             }
         }
 
-        public DateTime Date_desactivation
+        public DateTime? Date_desactivation
         {
             get
             {
@@ -126,6 +128,31 @@ namespace API_HomeShare.Models
             }
         }
 
+        public int Id_adresse
+        {
+            get
+            {
+                return _id_adresse;
+            }
+
+            set
+            {
+                _id_adresse = value;
+            }
+        }
+
+        public int Id_membre
+        {
+            get
+            {
+                return _id_membre;
+            }
+
+            set
+            {
+                _id_membre = value;
+            }
+        }
         #endregion
     }
 }
