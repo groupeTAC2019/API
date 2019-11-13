@@ -10,7 +10,7 @@ public class Photo
     private string _legende;
     private int _id_bien;
 
-    public long Id_Photo
+    public int Id_Photo
     {
         get
         {
@@ -49,7 +49,7 @@ public class Photo
         }
     }
 
-    public long Id_bien
+    public int Id_bien
     {
         get
         {
