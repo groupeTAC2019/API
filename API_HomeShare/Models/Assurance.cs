@@ -7,11 +7,11 @@ namespace API_HomeShare.Models
 {
     public class Assurance
     {
-        private long _id_assurance;
+        private int _id_assurance;
         private string _type;
         private decimal? _prix;
 
-        public long Id_assurance
+        public int Id_assurance
         {
             get
             {

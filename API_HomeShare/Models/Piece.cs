@@ -5,11 +5,11 @@ using System.Web;
 
 public class Piece
 {
-    private long _id_piece;
+    private int _id_piece;
     private string _nom;
     private int _nbr_pieces;
 
-    public long Id_piece
+    public int Id_piece
     {
         get
         {
