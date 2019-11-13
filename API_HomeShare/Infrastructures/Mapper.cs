@@ -112,18 +112,42 @@ namespace API_HomeShare.Infrastructures
                 Nom = (string)row["nom"]
             };
         }
-         #endregion
+        #endregion
 
         #region pays
-
+        public static Pays toPays(this DataRow row)
+        {
+            return new Pays()
+            {
+                Id = (int)row["id_pays"],
+                Nom = (string)row["nom"]
+            };
+        }
         #endregion
 
         #region photo
-
+        public static Photo toPhoto(this DataRow row)
+        {
+            return new Photo()
+            {
+                Id_Photo = (int)row["id_photo"],
+                Lien = (string)row["lien"],
+                Legende = (string)row["legende"],
+                Id_bien = (int)row["id_membre"]
+            };
+        }
         #endregion
 
         #region piece
-
+        public static Piece toPiece(this DataRow row)
+        {
+            return new Piece()
+            {
+                Id_piece = (int)row["id_piece"],
+                Nom = (string)row["nom"],
+                Nbr_pieces = (int)row["nbr_pieces"]
+            };
+        }
         #endregion
-            }
+    }
 }
