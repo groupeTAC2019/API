@@ -83,7 +83,9 @@ namespace API_HomeShare.Controllers
         [Route("api/bien/{id:int}")]
         public Bien GetById(int id)
         {
-            Command cmd = new Command("exec Bien_Membre");
+            Command cmd = new Command("Bien_Membre", true);
+
+            cmd.AddParameter("id_membre", id.ToString());
 
             Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
 
@@ -104,6 +106,42 @@ namespace API_HomeShare.Controllers
             };
 
             return bien;
+        }
+
+        [Route("api/bien/entredates")]
+        public List<Bien> GetBienEntreDates(DateTime debut , DateTime fin)
+        {
+            Command cmd = new Command("Details_Bien",true);
+
+            Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
+
+            cmd.AddParameter("debut", debut.ToString());
+            cmd.AddParameter("fin", fin.ToString());
+
+            DataTable dt = con.GetDataTable(cmd);
+            List<Bien> result = new List<Bien>();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                Bien bien = new Bien()
+                {
+                    Id = (int)row["id_bien"],
+                    Titre = row["titre"].ToString(),
+                    Desc_courte = row["desc_courte"].ToString(),
+                    Desc_longue = row["desc_longue"].ToString(),
+                    Nb_personne = (int)row["nb_personne"],
+                    Disponible = (bool)row["disponible"],
+                    Date_desactivation = row["date_desactivation"] == DBNull.Value ? null : (DateTime?)row["date_desactivation"],
+                    Id_adresse = (int)row["id_adresse"],
+                    Id_membre = (int)row["id_membre"],
+                    Date_ajout = (DateTime)row["date_ajout"]
+
+                };
+
+                result.Add(bien);
+            }
+
+            return result;
         }
     }
 }
