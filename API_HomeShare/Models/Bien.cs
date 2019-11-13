@@ -16,7 +16,9 @@ namespace API_HomeShare.Models
         private DateTime _date_ajout;
         private int _nb_personne;
         private bool _disponible;
-        private DateTime _date_desactivation;
+        private DateTime? _date_desactivation;
+        private long _id_adresse;
+        private long _id_membre;
 
         #endregion
 
@@ -113,7 +115,7 @@ namespace API_HomeShare.Models
             }
         }
 
-        public DateTime Date_desactivation
+        public DateTime? Date_desactivation
         {
             get
             {
@@ -126,6 +128,31 @@ namespace API_HomeShare.Models
             }
         }
 
+        public long Id_adresse
+        {
+            get
+            {
+                return _id_adresse;
+            }
+
+            set
+            {
+                _id_adresse = value;
+            }
+        }
+
+        public long Id_membre
+        {
+            get
+            {
+                return _id_membre;
+            }
+
+            set
+            {
+                _id_membre = value;
+            }
+        }
         #endregion
     }
 }
