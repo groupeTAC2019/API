@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace API_HomeShare.Controllers
+namespace API_HomeShare.Models
 {
     public class Membre
     {
