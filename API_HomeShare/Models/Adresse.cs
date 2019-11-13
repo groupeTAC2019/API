@@ -7,15 +7,15 @@ namespace API_HomeShare.Models
 {
     public class Adresse
     {
-        private long _id_adresse;
+        private int _id_adresse;
         private string _ville;
         private int _cp;
         private string _rue;
         private int _num;
         private string _boite;
-        private long _id_pays;
+        private int _id_pays;
 
-        public long Id_adresse
+        public int Id_adresse
         {
             get
             {
@@ -93,7 +93,7 @@ namespace API_HomeShare.Models
             }
         }
 
-        public long Id_pays
+        public int Id_pays
         {
             get
             {

@@ -9,7 +9,7 @@ namespace API_HomeShare.Models
     {
         #region properties
 
-        private long id;
+        private int id;
         private string message;
         private int note;
         private bool valide;
@@ -21,7 +21,7 @@ namespace API_HomeShare.Models
 
         #region getter setter
 
-        public long Id
+        public int Id
         {
             get
             {

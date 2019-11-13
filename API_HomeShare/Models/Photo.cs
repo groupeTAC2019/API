@@ -5,10 +5,10 @@ using System.Web;
 
 public class Photo
 {
-    private long _id_Photo;
+    private int _id_Photo;
     private string _lien;
     private string _legende;
-    private long _id_bien;
+    private int _id_bien;
 
     public long Id_Photo
     {
