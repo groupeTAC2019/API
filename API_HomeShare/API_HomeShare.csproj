@@ -85,8 +85,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+<<<<<<< HEAD
     <Compile Include="Controllers\MembreController.cs" />
     <Compile Include="Controllers\BienController.cs" />
+=======
+    <Compile Include="Controllers\AdresseController.cs" />
+    <Compile Include="Controllers\AssuranceController.cs" />
+    <Compile Include="Controllers\CommentaireController.cs" />
+    <Compile Include="Controllers\OptionsController.cs" />
+    <Compile Include="Controllers\PieceController.cs" />
+>>>>>>> feature_controller_adresse
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
