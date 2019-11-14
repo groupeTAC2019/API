@@ -85,7 +85,7 @@ namespace API_HomeShare.Controllers
         }
         #endregion
 
-
+        #region biendetails
         [Route("api/biendetails/{id:int}")]
         public BienDetails GetById(int id)
 
@@ -232,23 +232,6 @@ namespace API_HomeShare.Controllers
             Command cmd = new Command("SELECT * FROM V_Bien_Bonne_Note");
             Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
 
-
-        //public Bien PostBien(Bien bien)
-        //{
-
-
-        //    Command cmd = new Command("insert into bien (titre,desc_courte,desc_longue,nb_personne,date_ajout,id_adresse,id_membre)" +
-        //                              "values (@titre,@desc_courte,@desc_longue,@nb_personne,@date_ajout,@id_adresse,@id_membre)");
-        //    cmd.AddParameter("@titre", bien.Titre);
-        //    cmd.AddParameter("@desc_courte", bien.Desc_courte);
-        //    cmd.AddParameter("@desc_longue", bien.Desc_longue);
-        //    cmd.AddParameter("@nb_personne", bien.Nb_personne);
-        //    cmd.AddParameter("@date_ajout", DateTime.Now.Date);
-        //    cmd.AddParameter("@id_adresse", Id_adresse);
-
-        //    Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
-
-
             DataTable dt = con.GetDataTable(cmd);
             List<Bien> bienListe = new List<Bien>();
             foreach (DataRow row in dt.Rows)
@@ -260,7 +243,6 @@ namespace API_HomeShare.Controllers
             return bienListe;
         }
         #endregion
-        //}
     }
     
 }
