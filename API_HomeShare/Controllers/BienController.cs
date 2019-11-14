@@ -132,14 +132,14 @@ namespace API_HomeShare.Controllers
 
         #region GetBienEntreDates
         [Route("api/bien/entredates")]
-        public List<Bien> GetBienEntreDates(DateTime debut, DateTime fin)
+        public List<Bien> GetBienEntreDates(DateDebutFin date)
         {
-            Command cmd = new Command("Details_Bien", true);
+            Command cmd = new Command("Bien_A_Date", true);
+
+            cmd.AddParameter("date_debut", date.debut);
+            cmd.AddParameter("date_fin", date.fin);
 
             Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
-
-            cmd.AddParameter("debut", debut.ToString());
-            cmd.AddParameter("fin", fin.ToString());
 
             DataTable dt = con.GetDataTable(cmd);
             List<Bien> result = new List<Bien>();
