@@ -1,4 +1,5 @@
-﻿using API_HomeShare.Models;
+﻿using API_HomeShare.Infrastructures;
+using API_HomeShare.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -19,11 +20,12 @@ namespace API_HomeShare.Controllers
         }
 
 
+        #region GetAll
         [Route("api/bien/getall")]
         public List<Bien> GetAll()
         {
             Command cmd = new Command("select * from Bien");
-            
+
             Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
 
             DataTable dt = con.GetDataTable(cmd);
@@ -44,13 +46,15 @@ namespace API_HomeShare.Controllers
                     Id_membre = (int)row["id_membre"],
                     Date_ajout = (DateTime)row["date_ajout"]
                 };
-                
+
                 result.Add(bien);
             }
 
             return result;
         }
+        #endregion
 
+        #region GetDernierBien
         [Route("api/bien/dernierBien")]
         public List<Bien> GetDernierBien()
         {
@@ -79,7 +83,9 @@ namespace API_HomeShare.Controllers
 
             return result;
         }
+        #endregion
 
+        #region GetById
         [Route("api/bien/{id:int}")]
         public Bien GetById(int id)
         {
@@ -107,11 +113,13 @@ namespace API_HomeShare.Controllers
 
             return bien;
         }
+        #endregion
 
+        #region GetBienEntreDates
         [Route("api/bien/entredates")]
-        public List<Bien> GetBienEntreDates(DateTime debut , DateTime fin)
+        public List<Bien> GetBienEntreDates(DateTime debut, DateTime fin)
         {
-            Command cmd = new Command("Details_Bien",true);
+            Command cmd = new Command("Details_Bien", true);
 
             Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
 
@@ -143,7 +151,9 @@ namespace API_HomeShare.Controllers
 
             return result;
         }
+        #endregion
 
+        #region Post
         [Route("api/bien")]
         public Bien Post(Bien bien)
         {
@@ -167,7 +177,7 @@ namespace API_HomeShare.Controllers
                 @disponible,
                 @id_adresse,
                 @id_membre)");
-            cmd.AddParameter("titre",bien.Titre);
+            cmd.AddParameter("titre", bien.Titre);
             cmd.AddParameter("desc_courte", bien.Desc_courte);
             cmd.AddParameter("desc_longue", bien.Desc_longue);
             cmd.AddParameter("date_ajout", DateTime.Now.Date);
@@ -180,6 +190,25 @@ namespace API_HomeShare.Controllers
             bien.Id = bid;
             return bien;
         }
+        #endregion
+
+        #region GetBienPays
+        [Route("api/bien/pays")]
+        public List<Bien> GetBienPays()
+        {
+            Command cmd = new Command("SELECT * FROM V_Bien_Pays");
+            Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
+
+            DataTable dt = con.GetDataTable(cmd);
+            List<Bien> bienListe = new List<Bien>();
+            foreach (DataRow row in dt.Rows) {
+                Bien bien = row.toBien();
+                bienListe.Add(bien);
+
+            }
+            return bienListe;
+        }
+        #endregion
     }
     
 }
