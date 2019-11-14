@@ -209,6 +209,25 @@ namespace API_HomeShare.Controllers
             return bienListe;
         }
         #endregion
+
+        #region GetBienReputation
+        [Route("api/bien/reputation")]
+        public List<Bien> GetBienReputation()
+        {
+            Command cmd = new Command("SELECT * FROM V_Bien_Bonne_Note");
+            Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
+
+            DataTable dt = con.GetDataTable(cmd);
+            List<Bien> bienListe = new List<Bien>();
+            foreach (DataRow row in dt.Rows)
+            {
+                Bien bien = row.toBien();
+                bienListe.Add(bien);
+
+            }
+            return bienListe;
+        }
+        #endregion
     }
     
 }
