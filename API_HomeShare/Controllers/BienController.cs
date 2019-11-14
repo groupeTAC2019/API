@@ -85,19 +85,20 @@ namespace API_HomeShare.Controllers
         }
         #endregion
 
-        #region GetById
-        [Route("api/bien/{id:int}")]
-        public Bien GetById(int id)
-        {
-            Command cmd = new Command("Bien_Membre", true);
 
-            cmd.AddParameter("id_membre", id.ToString());
+        [Route("api/biendetails/{id:int}")]
+        public BienDetails GetById(int id)
+
+        {
+            Command cmd = new Command("Details_Bien", true);
+
+            cmd.AddParameter("id_bien", id.ToString());
 
             Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
 
             DataTable dt = con.GetDataTable(cmd);
             DataRow result = dt.Rows[0];
-            Bien bien = new Bien()
+            BienDetails bien = new BienDetails()
             {
                 Id = (int)result["id_bien"],
                 Titre = result["titre"].ToString(),
@@ -108,7 +109,21 @@ namespace API_HomeShare.Controllers
                 Date_desactivation = result["date_desactivation"] == DBNull.Value ? null : (DateTime?)result["date_desactivation"],
                 Id_adresse = (int)result["id_adresse"],
                 Id_membre = (int)result["id_membre"],
-                Date_ajout = (DateTime)result["date_ajout"]
+                Date_ajout = (DateTime)result["date_ajout"],
+                Num = (int)result["Num"],
+                Rue = result["Rue"].ToString(),
+                Ville = result["Ville"].ToString(),
+                Cp = (int)result["CP"],
+                Boite = result["Boite"].ToString(),
+                Id_pays = (int)result["id_pays"],
+                PaysNom = result["nomPays"].ToString(),
+                Nom = result["nomMembre"].ToString(),
+                Email = result["email"].ToString(),
+                Tel = (int)result["tel"],
+                Admin = (bool)result["is_admin"],
+                Id_Photo = result["id_image"] == DBNull.Value ? null : (int?)result["id_image"],
+                Legende = result["legende"].ToString(),
+                Lien = result["lien"].ToString()
             };
 
             return bien;
@@ -217,6 +232,23 @@ namespace API_HomeShare.Controllers
             Command cmd = new Command("SELECT * FROM V_Bien_Bonne_Note");
             Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
 
+
+        //public Bien PostBien(Bien bien)
+        //{
+
+
+        //    Command cmd = new Command("insert into bien (titre,desc_courte,desc_longue,nb_personne,date_ajout,id_adresse,id_membre)" +
+        //                              "values (@titre,@desc_courte,@desc_longue,@nb_personne,@date_ajout,@id_adresse,@id_membre)");
+        //    cmd.AddParameter("@titre", bien.Titre);
+        //    cmd.AddParameter("@desc_courte", bien.Desc_courte);
+        //    cmd.AddParameter("@desc_longue", bien.Desc_longue);
+        //    cmd.AddParameter("@nb_personne", bien.Nb_personne);
+        //    cmd.AddParameter("@date_ajout", DateTime.Now.Date);
+        //    cmd.AddParameter("@id_adresse", Id_adresse);
+
+        //    Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
+
+
             DataTable dt = con.GetDataTable(cmd);
             List<Bien> bienListe = new List<Bien>();
             foreach (DataRow row in dt.Rows)
@@ -228,6 +260,7 @@ namespace API_HomeShare.Controllers
             return bienListe;
         }
         #endregion
+        //}
     }
     
 }

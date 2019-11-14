@@ -81,7 +81,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -99,6 +98,7 @@
     <Compile Include="Models\Adresse.cs" />
     <Compile Include="Models\Assurance.cs" />
     <Compile Include="Models\Bien.cs" />
+    <Compile Include="Models\BienDetails.cs" />
     <Compile Include="Models\Commentaire.cs" />
     <Compile Include="Models\Echange.cs" />
     <Compile Include="Models\Membre.cs" />
@@ -110,11 +110,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <Content Include="Web.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
