@@ -22,7 +22,7 @@ namespace API_HomeShare.Controllers
         public List<Piece> Get()
         {
             Command cmd = new Command("Select * from Piece");
-            Connection con = new Connection(GetConnectionStrings("varcon").ProviderName, GetConnectionStrings("varcon").ConnectionString);
+            Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
 
             DataTable dt = con.GetDataTable(cmd);
             List<Piece> pe = new List<Piece>();
@@ -45,7 +45,7 @@ namespace API_HomeShare.Controllers
         {
             Command cmd = new Command("Select * from Piece where id_piece = @id");
             cmd.AddParameter("id", id);
-            Connection con = new Connection(GetConnectionStrings("varcon").ProviderName, GetConnectionStrings("varcon").ConnectionString);
+            Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
 
 
             DataTable st = con.GetDataTable(cmd);

@@ -30,7 +30,7 @@ namespace API_HomeShare.Controllers
         {
             Command cmd = new Command("Select * from Adresse where id_adresse = @id");
             cmd.AddParameter("id", id);
-            Connection con = new Connection(GetConnectionStrings("varcon").ProviderName, GetConnectionStrings("varcon").ConnectionString);
+            Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
 
             DataTable dt = con.GetDataTable(cmd);
             DataRow item = dt.Rows[0];
@@ -67,7 +67,7 @@ namespace API_HomeShare.Controllers
             cmd.AddParameter("boite", adr.Boite);
             cmd.AddParameter("id_pays", adr.Id_pays);
 
-            Connection conn = new Connection(GetConnectionStrings("varcon").ProviderName, GetConnectionStrings("varcon").ConnectionString);
+            Connection conn = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
             int sid = (int)conn.ExecuteScalar(cmd);
             adr.Id_adresse = sid;
             return adr;

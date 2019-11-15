@@ -23,7 +23,7 @@ namespace API_HomeShare.Controllers
         public List<Assurance> Get()
         {
             Command cmd = new Command("select * from Assurance");
-            Connection con = new Connection(GetConnectionStrings("varcon").ProviderName, GetConnectionStrings("varcon").ConnectionString);
+            Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
 
             DataTable dt = con.GetDataTable(cmd);
             List<Assurance> assur = new List<Assurance>();
@@ -46,7 +46,7 @@ namespace API_HomeShare.Controllers
         {
             Command cmd = new Command("select * from Assurance where id_assurance = @id");
             cmd.AddParameter("id", id);
-            Connection con = new Connection(GetConnectionStrings("varcon").ProviderName, GetConnectionStrings("varcon").ConnectionString);
+            Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
 
             DataTable dt = con.GetDataTable(cmd);
             DataRow item = dt.Rows[0];

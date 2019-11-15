@@ -23,7 +23,7 @@ namespace API_HomeShare.Controllers
         public List<Options> Get()
         {
             Command cmd = new Command("Select * from Options");
-            Connection con = new Connection(GetConnectionStrings("varcon").ProviderName, GetConnectionStrings("varcon").ConnectionString);
+            Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
 
 
             DataTable dt = con.GetDataTable(cmd);
@@ -48,7 +48,7 @@ namespace API_HomeShare.Controllers
         {
             Command cmd = new Command("Select * from Options where id_option = @id");
             cmd.AddParameter("id", id);
-            Connection con = new Connection(GetConnectionStrings("varcon").ProviderName, GetConnectionStrings("varcon").ConnectionString);
+            Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
 
             DataTable st = con.GetDataTable(cmd);
             DataRow item = st.Rows[0];

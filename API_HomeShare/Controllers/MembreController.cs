@@ -24,7 +24,7 @@ namespace API_HomeShare.Controllers
         public List<Membre> Get()
         {
             Command cmd = new Command("Select * from Membre WHERE is_delete != 1");
-            Connection con = new Connection(GetConnectionStrings("DBConnection").ProviderName, GetConnectionStrings("DBConnection").ConnectionString);
+            Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
 
             DataTable dt = con.GetDataTable(cmd);
             List<Membre> listeMembre = new List<Membre>();
@@ -51,7 +51,7 @@ namespace API_HomeShare.Controllers
         {
             Command cmd = new Command("Select * from Membre WHERE id_Membre = @id_Membre");
             cmd.AddParameter("id_Membre", id_Membre);
-            Connection con = new Connection(GetConnectionStrings("DBConnection").ProviderName, GetConnectionStrings("DBConnection").ConnectionString);
+            Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
 
             DataTable mt = con.GetDataTable(cmd);
             DataRow item = mt.Rows[0];
@@ -72,7 +72,7 @@ namespace API_HomeShare.Controllers
         public List<Bien> GetBien(int id_Membre){
             Command cmd = new Command("Bien_Membre",true);
             cmd.AddParameter("id_membre", id_Membre);
-            Connection con = new Connection(GetConnectionStrings("DBConnection").ProviderName, GetConnectionStrings("DBConnection").ConnectionString);
+            Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
 
             DataTable dt = con.GetDataTable(cmd);
             List<Bien> listeBien = new List<Bien>();
@@ -112,7 +112,7 @@ namespace API_HomeShare.Controllers
             cmd.AddParameter("is_admin", m.Admin);
             cmd.AddParameter("mdp", m.Mdp);
             cmd.AddParameter("id_pays", m.Id_pays);
-            Connection con = new Connection(GetConnectionStrings("DBConnection").ProviderName, GetConnectionStrings("DBConnection").ConnectionString);
+            Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
             int mid = (int)con.ExecuteScalar(cmd);
             m.Id_membre = mid;
             return m;
@@ -149,7 +149,7 @@ namespace API_HomeShare.Controllers
             cmd.AddParameter("is_admin", m.Admin);
             cmd.AddParameter("mdp", m.Mdp);
             cmd.AddParameter("id_pays", m.Id_pays);
-            Connection con = new Connection(GetConnectionStrings("DBConnection").ProviderName, GetConnectionStrings("DBConnection").ConnectionString);
+            Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
             con.ExecuteScalar(cmd);
         }
 
@@ -159,7 +159,7 @@ namespace API_HomeShare.Controllers
             Command cmd = new Command(@"DELETE from Membre WHERE id_Membre = @id_Membre
                                         SELECT is_delete FROM Membre WHERE id_membre = @id_Membre");
             cmd.AddParameter("id_Membre", id_Membre);
-            Connection con = new Connection(GetConnectionStrings("DBConnection").ProviderName, GetConnectionStrings("DBConnection").ConnectionString);
+            Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
             return (bool)con.ExecuteScalar(cmd);
         }
     }

@@ -23,7 +23,7 @@ namespace API_HomeShare.Controllers
         public List<Commentaire> Get()
         {
             Command cmd = new Command("Select * from Commentaire");
-            Connection con = new Connection(GetConnectionStrings("DBConnection").ProviderName, GetConnectionStrings("DBConnection").ConnectionString);
+            Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
 
             DataTable dt = con.GetDataTable(cmd);
             List<Commentaire> comt = new List<Commentaire>();
@@ -50,7 +50,7 @@ namespace API_HomeShare.Controllers
         {
             Command cmd = new Command("Select * from Commentaire where id_commentaire = @id");
             cmd.AddParameter("id", id);
-            Connection con = new Connection(GetConnectionStrings("DBConnection").ProviderName, GetConnectionStrings("DBConnection").ConnectionString);
+            Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
 
 
             DataTable dt = con.GetDataTable(cmd);
@@ -84,7 +84,7 @@ namespace API_HomeShare.Controllers
             cmd.AddParameter("id_membre", comentair.Id_membre);
             cmd.AddParameter("id_bien", comentair.Id_bien);
 
-            Connection con = new Connection(GetConnectionStrings("DBConnection").ProviderName, GetConnectionStrings("DBConnection").ConnectionString);
+            Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
             int sid = (int)con.ExecuteScalar(cmd);
             comentair.Id = sid;
             return comentair;
@@ -100,7 +100,7 @@ namespace API_HomeShare.Controllers
             cmd.AddParameter("message", comt.Message);
             cmd.AddParameter("note", comt.Note);
 
-            Connection con = new Connection(GetConnectionStrings("DBConnection").ProviderName, GetConnectionStrings("DBConnection").ConnectionString);
+            Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
             /*int sid = (int)*/con.ExecuteNonQuery(cmd);
         }
 

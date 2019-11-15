@@ -23,7 +23,7 @@ namespace API_HomeShare.Controllers
         public List<Echange> Get()
         {
             Command cmd = new Command("Select * from Echange");
-            Connection con = new Connection(GetConnectionStrings("DBConnection").ProviderName, GetConnectionStrings("DBConnection").ConnectionString);
+            Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
 
             DataTable dt = con.GetDataTable(cmd);
             List<Echange> listechange = new List<Echange>();
@@ -41,7 +41,7 @@ namespace API_HomeShare.Controllers
         {
             Command cmd = new Command("Select * from Echange where id_echange = @id");
             cmd.AddParameter("id", id);
-            Connection con = new Connection(GetConnectionStrings("DBConnection").ProviderName, GetConnectionStrings("DBConnection").ConnectionString);
+            Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
 
             DataTable dt = con.GetDataTable(cmd);
             DataRow item = dt.Rows[0];
@@ -66,7 +66,7 @@ namespace API_HomeShare.Controllers
             cmd.AddParameter("id_bien", echang.Id_bien);
             cmd.AddParameter("id_membre", echang.Id_membre);
 
-            Connection con = new Connection(GetConnectionStrings("DBConnection").ProviderName, GetConnectionStrings("DBConnection").ConnectionString);
+            Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
             int sid = (int)con.ExecuteScalar(cmd);
             echang.Id_echange = sid;
             return echang;
@@ -82,7 +82,7 @@ namespace API_HomeShare.Controllers
             cmd.AddParameter("id", id);
             cmd.AddParameter("valide", echang.Valide);
 
-            Connection con = new Connection(GetConnectionStrings("DBConnection").ProviderName, GetConnectionStrings("DBConnection").ConnectionString);
+            Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
             con.ExecuteNonQuery(cmd);
         }
 
