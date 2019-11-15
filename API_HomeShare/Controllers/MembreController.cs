@@ -24,7 +24,7 @@ namespace API_HomeShare.Controllers
         public List<Membre> Get()
         {
             Command cmd = new Command("Select * from Membre WHERE is_delete != 1");
-            Connection con = new Connection(GetConnectionStrings("DBConnection").ProviderName, GetConnectionStrings("DBConnection").ConnectionString);
+            Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
 
             DataTable dt = con.GetDataTable(cmd);
             List<Membre> listeMembre = new List<Membre>();
@@ -51,7 +51,7 @@ namespace API_HomeShare.Controllers
         {
             Command cmd = new Command("Select * from Membre WHERE id_Membre = @id_Membre");
             cmd.AddParameter("id_Membre", id_Membre);
-            Connection con = new Connection(GetConnectionStrings("DBConnection").ProviderName, GetConnectionStrings("DBConnection").ConnectionString);
+            Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
 
             DataTable mt = con.GetDataTable(cmd);
             DataRow item = mt.Rows[0];
@@ -72,23 +72,13 @@ namespace API_HomeShare.Controllers
         public List<Bien> GetBien(int id_Membre){
             Command cmd = new Command("Bien_Membre",true);
             cmd.AddParameter("id_membre", id_Membre);
-            Connection con = new Connection(GetConnectionStrings("DBConnection").ProviderName, GetConnectionStrings("DBConnection").ConnectionString);
+            Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
 
             DataTable dt = con.GetDataTable(cmd);
             List<Bien> listeBien = new List<Bien>();
             foreach (DataRow item in dt.Rows)
             {
-                Bien b = new Bien()
-                {
-                    Id = (int)item["id_bien"],
-                    Titre = item["titre"].ToString(),
-                    Desc_courte = item["desc_courte"].ToString(),
-                    Desc_longue = item["desc_longue"].ToString(),
-                    Nb_personne = (int)item["nb_personne"],
-                    Disponible = (bool)item["disponible"],
-                    Date_desactivation = item["date_desactivation"] == DBNull.Value ? null : (DateTime?)row["date_desactivation"],
-                    Date_ajout = (DateTime)item["date_ajout"]
-                };
+                Bien b = item.toBien();
                 listeBien.Add(b);
             }
             return listeBien;
@@ -122,7 +112,7 @@ namespace API_HomeShare.Controllers
             cmd.AddParameter("is_admin", m.Admin);
             cmd.AddParameter("mdp", m.Mdp);
             cmd.AddParameter("id_pays", m.Id_pays);
-            Connection con = new Connection(GetConnectionStrings("DBConnection").ProviderName, GetConnectionStrings("DBConnection").ConnectionString);
+            Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
             int mid = (int)con.ExecuteScalar(cmd);
             m.Id_membre = mid;
             return m;
@@ -159,7 +149,7 @@ namespace API_HomeShare.Controllers
             cmd.AddParameter("is_admin", m.Admin);
             cmd.AddParameter("mdp", m.Mdp);
             cmd.AddParameter("id_pays", m.Id_pays);
-            Connection con = new Connection(GetConnectionStrings("DBConnection").ProviderName, GetConnectionStrings("DBConnection").ConnectionString);
+            Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
             con.ExecuteScalar(cmd);
         }
 
@@ -169,7 +159,7 @@ namespace API_HomeShare.Controllers
             Command cmd = new Command(@"DELETE from Membre WHERE id_Membre = @id_Membre
                                         SELECT is_delete FROM Membre WHERE id_membre = @id_Membre");
             cmd.AddParameter("id_Membre", id_Membre);
-            Connection con = new Connection(GetConnectionStrings("DBConnection").ProviderName, GetConnectionStrings("DBConnection").ConnectionString);
+            Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
             return (bool)con.ExecuteScalar(cmd);
         }
     }

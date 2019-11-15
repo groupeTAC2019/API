@@ -7,10 +7,10 @@ namespace API_HomeShare.Models
 {
     public class Pays
     {
-        private long _id;
+        private int _id;
         private string nom;
 
-        public long Id
+        public int Id
         {
             get
             {
