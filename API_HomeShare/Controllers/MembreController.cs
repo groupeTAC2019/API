@@ -20,6 +20,7 @@ namespace API_HomeShare.Controllers
             ConnectionStringSettings connections = ConfigurationManager.ConnectionStrings[name];
             return connections;
         }
+
         [Route("api/Membre")]
         public List<Membre> Get()
         {
@@ -162,5 +163,17 @@ namespace API_HomeShare.Controllers
             Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
             return (bool)con.ExecuteScalar(cmd);
         }
+
+        [Route("api/Membre/login")]
+        public bool Login()
+        {
+            Command cmd = new Command("select * from membre where email = @email and mdp = @mdp");
+            Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
+
+            DataTable dt = con.GetDataTable(cmd);
+            return dt.Rows.Count > 0 ? true : false;
+        }
     }
+
+    
 }
