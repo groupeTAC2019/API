@@ -9,6 +9,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using ToolBox;
+using API_HomeShare.Infrastructures.TokenManager;
+using System.Security.Claims;
 
 namespace API_HomeShare.Controllers
 {
@@ -165,13 +167,30 @@ namespace API_HomeShare.Controllers
         }
 
         [Route("api/Membre/login")]
-        public bool Login()
+        public string Login(LoginModel login)
         {
+            string token = null;
+
             Command cmd = new Command("select * from membre where email = @email and mdp = @mdp");
+            cmd.AddParameter("email", login.email);
+            cmd.AddParameter("mdp", login.mdp);
             Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
 
             DataTable dt = con.GetDataTable(cmd);
-            return dt.Rows.Count > 0 ? true : false;
+
+            if (dt.Rows.Count > 0)
+            {
+                IAuthContainerModel model = GeneratedToken.GetJWTContainerModel(dt.Rows[0]["nom"].ToString(), dt.Rows[0]["email"].ToString());
+                IAuthService authService = new JWTService(model.SecretKey);
+
+                token = authService.GenerateToken(model);
+                List<Claim> claims = authService.GetTokenClaims(token).ToList();
+
+                Console.WriteLine(claims.FirstOrDefault(e => e.Type.Equals(ClaimTypes.Name)).Value);
+                Console.WriteLine(claims.FirstOrDefault(e => e.Type.Equals(ClaimTypes.Email)).Value);
+            }
+
+            return token;
         }
     }
 

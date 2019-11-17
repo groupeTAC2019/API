@@ -1,4 +1,5 @@
 ﻿using API_HomeShare.Infrastructures;
+using API_HomeShare.Infrastructures.TokenManager;
 using API_HomeShare.Models;
 using System;
 using System.Collections.Generic;
@@ -22,32 +23,37 @@ namespace API_HomeShare.Controllers
 
         #region GetAll
         [Route("api/bien/getall")]
-        public List<Bien> GetAll()
+        public List<Bien> GetAll(Token token)
         {
+            JWTService controlToken = new JWTService("TW9zaGVFcmV6UHJpdmF0ZUtleQ==");
+
             Command cmd = new Command("select * from Bien");
 
             Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
 
             DataTable dt = con.GetDataTable(cmd);
             List<Bien> result = new List<Bien>();
+            //if (controlToken.IsTokenValid(token))
+            //{
 
-            foreach (DataRow row in dt.Rows)
-            {
-                Bien bien = new Bien()
+                foreach (DataRow row in dt.Rows)
                 {
-                    Id = (int)row["id_bien"],
-                    Titre = row["titre"].ToString(),
-                    Desc_courte = row["desc_courte"].ToString(),
-                    Desc_longue = row["desc_longue"].ToString(),
-                    Nb_personne = (int)row["nb_personne"],
-                    Disponible = (bool)row["disponible"],
-                    Date_desactivation = row["date_desactivation"] == DBNull.Value ? null : (DateTime?)row["date_desactivation"],
-                    Id_adresse = (int)row["id_adresse"],
-                    Id_membre = (int)row["id_membre"],
-                    Date_ajout = (DateTime)row["date_ajout"]
-                };
+                    Bien bien = new Bien()
+                    {
+                        Id = (int)row["id_bien"],
+                        Titre = row["titre"].ToString(),
+                        Desc_courte = row["desc_courte"].ToString(),
+                        Desc_longue = row["desc_longue"].ToString(),
+                        Nb_personne = (int)row["nb_personne"],
+                        Disponible = (bool)row["disponible"],
+                        Date_desactivation = row["date_desactivation"] == DBNull.Value ? null : (DateTime?)row["date_desactivation"],
+                        Id_adresse = (int)row["id_adresse"],
+                        Id_membre = (int)row["id_membre"],
+                        Date_ajout = (DateTime)row["date_ajout"]
+                    };
 
-                result.Add(bien);
+                    result.Add(bien);
+              //  } 
             }
 
             return result;
@@ -216,7 +222,8 @@ namespace API_HomeShare.Controllers
 
             DataTable dt = con.GetDataTable(cmd);
             List<Bien> bienListe = new List<Bien>();
-            foreach (DataRow row in dt.Rows) {
+            foreach (DataRow row in dt.Rows)
+            {
                 Bien bien = row.toBien();
                 bienListe.Add(bien);
 
@@ -244,5 +251,5 @@ namespace API_HomeShare.Controllers
         }
         #endregion
     }
-    
+
 }
