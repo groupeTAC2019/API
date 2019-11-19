@@ -7,10 +7,12 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using ToolBox;
 
 namespace API_HomeShare.Controllers
 {
+    [EnableCors(origins:"*",headers:"*",methods:"*")]
     public class BienController : ApiController
     {
         public ConnectionStringSettings GetConnectionStrings(String name)
