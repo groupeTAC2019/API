@@ -38,12 +38,12 @@ namespace API_HomeShare.Controllers
 
             return listePays;
         }
-        /*
+        
         // GET: api/Pays/5
         [Route("api/Pays/{id:int}")]
         public Pays Get(int id)
         {
-            Command cmd = new Command("Select * from Options where id_option = @id");
+            Command cmd = new Command("Select * from Pays where id_pays = @id");
             cmd.AddParameter("id", id);
             Connection con = new Connection(GetConnectionStrings("DBConnexion").ProviderName, GetConnectionStrings("DBConnexion").ConnectionString);
 
@@ -53,7 +53,7 @@ namespace API_HomeShare.Controllers
 
             return p;
         }
-        */
+        
         //// POST: api/Options
         //public void Post([FromBody]string value)
         //{
