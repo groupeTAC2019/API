@@ -21,7 +21,7 @@ namespace API_HomeShare.Controllers
             return connections;
         }
         // GET: api/Echange
-        [Route("api/Commentaire")]
+        [Route("api/Echange")]
         public List<Echange> Get()
         {
             Command cmd = new Command("Select * from Echange");
